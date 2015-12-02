@@ -79,7 +79,7 @@ function! buftabline#render()
 			let tab.label = ( show_mod ? '!' . screen_num : screen_num ? screen_num . ' !' : '!' )
 		else " unnamed file
 			let tab.label = ( show_mod && getbufvar(bufnum, '&mod') ? '+' : '' )
-			\             . ( screen_num ? screen_num : '*' )
+			\             . ( screen_num ? screen_num : '[No Name]' )
 		endif
 		let tabs += [tab]
 	endfor
