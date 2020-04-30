@@ -36,6 +36,7 @@ hi default link BufTabLineFill    TabLineFill
 
 let g:buftabline_numbers    = get(g:, 'buftabline_numbers',    0)
 let g:buftabline_indicators = get(g:, 'buftabline_indicators', 0)
+let g:buftabline_modifier   = get(g:, 'buftabline_modifier', '+')
 let g:buftabline_separators = get(g:, 'buftabline_separators', 0)
 let g:buftabline_show       = get(g:, 'buftabline_show',       2)
 let g:buftabline_plug_max   = get(g:, 'buftabline_plug_max',  10)
@@ -50,6 +51,7 @@ function! buftabline#render()
 	let show_num = g:buftabline_numbers == 1
 	let show_ord = g:buftabline_numbers == 2
 	let show_mod = g:buftabline_indicators
+  let modifier_char = g:buftabline_modifier
 	let lpad     = g:buftabline_separators ? nr2char(0x23B8) : ' '
 
 	let bufnums = buftabline#user_buffers()
@@ -71,7 +73,7 @@ function! buftabline#render()
 			let tab.path = fnamemodify(bufpath, ':p:~:.')
 			let tab.sep = strridx(tab.path, s:dirsep, strlen(tab.path) - 2) " keep trailing dirsep
 			let tab.label = tab.path[tab.sep + 1:]
-			let pre = ( show_mod && getbufvar(bufnum, '&mod') ? '+' : '' ) . screen_num
+			let pre = ( show_mod && getbufvar(bufnum, '&mod') ? modifier_char : '' ) . screen_num
 			let tab.pre = strlen(pre) ? pre . ' ' : ''
 			let tabs_per_tail[tab.label] = get(tabs_per_tail, tab.label, 0) + 1
 			let path_tabs += [tab]
